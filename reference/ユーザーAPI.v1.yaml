@@ -1,0 +1,255 @@
+openapi: 3.0.0
+info:
+  title: ユーザーAPI
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/users/{userid}':
+    parameters:
+      - schema:
+          type: string
+        name: userid
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  name:
+                    type: string
+                    minLength: 1
+                  email:
+                    type: string
+                    minLength: 1
+                  mentor_flag:
+                    type: boolean
+                  skill_id:
+                    type: array
+                    items: {}
+                required:
+                  - id
+                  - name
+                  - email
+                  - mentor_flag
+                  - skill_id
+              examples:
+                example-1:
+                  value:
+                    id: 1
+                    name: asato
+                    email: asato@example.com
+                    mentor_flag: true
+                    skill_id:
+                      - 4
+                      - 5
+                      - 6
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+      operationId: get-users-userid
+      description: 各ユーザーを取得
+  /users:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    name:
+                      type: string
+                      minLength: 1
+                    email:
+                      type: string
+                      minLength: 1
+                    mentor_flag:
+                      type: boolean
+                    skill_id:
+                      type: array
+                      items: {}
+                  required:
+                    - id
+                    - name
+                    - email
+                    - mentor_flag
+                    - skill_id
+              examples:
+                example-1:
+                  value:
+                    - id: 1
+                      name: asato
+                      email: asato@example.com
+                      mentor_flag: true
+                      skill_id:
+                        - 5
+                        - 6
+                        - 7
+                    - id: 2
+                      name: takara
+                      email: takara@example.com
+                      mentor_flag: false
+                      skill_id:
+                        - 2
+                        - 3
+                        - 4
+      operationId: get-users
+      description: ユーザー一覧を取得
+  /user:
+    post:
+      summary: ''
+      operationId: post-user
+      responses:
+        '200':
+          description: ユーザー作成完了
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    name:
+                      type: string
+                      minLength: 1
+                    email:
+                      type: string
+                      minLength: 1
+                    mentor_flag:
+                      type: boolean
+                    skill_id:
+                      type: array
+                      items: {}
+                  required:
+                    - id
+                    - name
+                    - email
+                    - mentor_flag
+                    - skill_id
+      description: 新規ユーザーの作成
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              description: ''
+              minItems: 1
+              uniqueItems: true
+              items:
+                type: object
+                required:
+                  - id
+                  - name
+                  - email
+                  - mentor_flag
+                  - skill_id
+                properties:
+                  id:
+                    type: number
+                  name:
+                    type: string
+                    minLength: 1
+                  email:
+                    type: string
+                    minLength: 1
+                  mentor_flag:
+                    type: boolean
+                  skill_id:
+                    type: array
+                    items:
+                      required: []
+                      properties: {}
+          application/xml:
+            schema:
+              type: array
+              description: ''
+              minItems: 1
+              uniqueItems: true
+              items:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  name:
+                    type: string
+                    minLength: 1
+                  email:
+                    type: string
+                    minLength: 1
+                  mentor_flag:
+                    type: boolean
+                  skill_id:
+                    type: array
+                    items: {}
+                required:
+                  - id
+                  - name
+                  - email
+                  - mentor_flag
+                  - skill_id
+            examples:
+              example-1:
+                value: {}
+        description: ユーザー作成用パラメータ
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: ''
+      x-examples:
+        example-1:
+          id: 1
+          name: asato
+          email: asato@example.com
+          mentor_flag: true
+          skill_id: 1
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the given user.
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        mentor_flag:
+          type: boolean
+          description: Set to true if the user's email has been verified.
+        skill_id:
+          format: date
+          description: The date that the user was created.
+          type: array
+          items: {}
+      required:
+        - id
+        - name
+        - email
+        - mentor_flag
